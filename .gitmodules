@@ -1,0 +1,3 @@
+[submodule "packages/konva-xmind"]
+	path = packages/konva-xmind
+	url = https://github.com/xingBaGan/konva-xmind
