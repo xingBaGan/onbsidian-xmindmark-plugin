@@ -7,8 +7,6 @@ import { App, PluginSettingTab, MarkdownView } from "obsidian";
 import { createApp } from "vue";
 import SamplePlugin from "./main";
 // import SampleSettingTabPage from "./SettingTabPage.vue";
-import xMindView from "./xMindView.vue";
-import { parseXMindMarkToXMindFile } from 'xmindmark'
 /**
  * The plugin setting-tab.
  *
@@ -60,20 +58,5 @@ export class SampleSettingTab extends PluginSettingTab {
          *
          * 挂载 `SampleSettingTabPage` 组件.
          */
-
-        createApp(xMindView, {
-            file: this.file
-        }).mount(containerEl);
-    }
-
-    getEditorContent() {
-        const view = this.app.workspace.getActiveViewOfType(MarkdownView)!;
-        return view.getViewData();
-    }
-
-    async updateContent() {
-        const content = this.getEditorContent();
-        this.file = await parseXMindMarkToXMindFile(content);
-        this.display();
     }
 }

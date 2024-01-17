@@ -5,9 +5,11 @@
  */
 import { Plugin } from "obsidian";
 import { SampleSettingTab } from "./setting-tab";
-import xMindView from "./xMindView.vue";
 import { createApp } from "vue";
-import { parseXMindMarkToXMindFile } from 'xmindmark'
+import { createPinia } from 'pinia'
+import { renderMapByString } from './convertMarkToJson';
+import xmindTree from  'konva-xmind';
+import VueKonva from 'vue-konva';
 /**
  * The plugin.
  *
@@ -45,10 +47,14 @@ export default class SamplePlugin extends Plugin {
             const codeblocks = element.findAll("code");
             for (let codeblock of codeblocks) {
                 const text = codeblock.innerText.trim();
-                const file = await parseXMindMarkToXMindFile(text);
-                createApp(xMindView, {
-                    file,
-                }).mount(element);
+                const json = await renderMapByString(text);
+                const app = createApp(xmindTree, {
+                    data: json,
+                });
+                const pinia = createPinia();
+                app.use(pinia);
+                app.use(VueKonva);
+                app.mount(element);
             }
         });
     }
