@@ -8,7 +8,7 @@ import { SampleSettingTab } from "./setting-tab";
 import { createApp } from "vue";
 import { createPinia } from 'pinia'
 import { renderMapByString } from './convertMarkToJson';
-import xmindTree from  'konva-xmind';
+import xmindTree from 'konva-xmind';
 import VueKonva from 'vue-konva';
 /**
  * The plugin.
@@ -40,7 +40,6 @@ export default class SamplePlugin extends Plugin {
         this.addSettingTab(settingTab);
 
         this.addRibbonIcon('git-branch-plus', 'create a mind map', async () => {
-            settingTab.updateContent();
         });
 
         this.registerMarkdownPostProcessor(async (element, ctx) => {
